@@ -1,4 +1,4 @@
-package elcon.mods.metallurgybees;
+package elcon.mods.metallurgybees.misc;
 
 import java.io.File;
 

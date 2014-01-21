@@ -10,8 +10,8 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import elcon.mods.metallurgybees.MetallurgyBeeTypes;
 import elcon.mods.metallurgybees.MetallurgyBees;
+import elcon.mods.metallurgybees.bees.MetallurgyBeeTypes;
 import forestry.core.config.ForestryItem;
 
 public class ItemHoneyComb extends Item {

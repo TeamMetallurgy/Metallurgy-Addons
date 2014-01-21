@@ -1,4 +1,4 @@
-package elcon.mods.metallurgybees;
+package elcon.mods.metallurgybees.bees;
 
 import java.util.EnumSet;
 
