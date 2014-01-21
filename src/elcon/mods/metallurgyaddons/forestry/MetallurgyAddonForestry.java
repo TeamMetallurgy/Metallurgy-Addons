@@ -86,9 +86,9 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			MetallurgyBeeTypes beeType = MetallurgyBeeTypes.values()[i];
 
 			// init bee species alleles
-			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.metals." + beeType.name, branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary);
-			beeType.speciesRefined = new AlleleBeeSpecies(beeType.name + "Refined", true, "metallurgy.metals." + beeType.name, branchMetal, "metallum", beeType.colorBeeRefinedPrimary, beeType.colorBeeRefinedSecondary);
-			beeType.speciesReforged = (AlleleBeeSpecies) new AlleleBeeSpecies(beeType.name + "Reforged", true, "metallurgy.metals." + beeType.name, branchMetal, "metallum", beeType.colorBeeReforgedPrimary, beeType.colorBeeReforgedSecondary).setHasEffect();
+			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.metals." + beeType.name, branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 10);
+			beeType.speciesRefined = new AlleleBeeSpecies(beeType.name + "Refined", true, "metallurgy.metals." + beeType.name, branchMetal, "metallum", beeType.colorBeeRefinedPrimary, beeType.colorBeeRefinedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 30);
+			beeType.speciesReforged = (AlleleBeeSpecies) new AlleleBeeSpecies(beeType.name + "Reforged", true, "metallurgy.metals." + beeType.name, branchMetal, "metallum", beeType.colorBeeReforgedPrimary, beeType.colorBeeReforgedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 50).setHasEffect();
 
 			// register templates
 			beeRoot.registerTemplate(getMetalBeeRoughTemplate(beeType));
