@@ -114,35 +114,21 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 		new BeeMutation(MetallurgyBeeTypes.COPPPER.speciesRefined, MetallurgyBeeTypes.TIN.speciesRefined, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.BRONZE), 5);
 		new BeeMutation(MetallurgyBeeTypes.COPPPER.speciesReforged, MetallurgyBeeTypes.TIN.speciesReforged, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.BRONZE), 2);
 
-		new BeeMutation(MetallurgyBeeTypes.BRONZE.speciesRough, MetallurgyBeeTypes.GOLD.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.HEPATIZON), 10);
-		new BeeMutation(MetallurgyBeeTypes.HEPATIZON.speciesRough, MetallurgyBeeTypes.HEPATIZON.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.HEPATIZON), 5);
-		new BeeMutation(MetallurgyBeeTypes.HEPATIZON.speciesRefined, MetallurgyBeeTypes.HEPATIZON.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.HEPATIZON), 2);
-
-		new BeeMutation(MetallurgyBeeTypes.BRONZE.speciesRough, MetallurgyBeeTypes.IRON.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.DAMASCUS_STEEL), 10);
-		new BeeMutation(MetallurgyBeeTypes.DAMASCUS_STEEL.speciesRough, MetallurgyBeeTypes.DAMASCUS_STEEL.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.DAMASCUS_STEEL), 5);
-		new BeeMutation(MetallurgyBeeTypes.DAMASCUS_STEEL.speciesRefined, MetallurgyBeeTypes.DAMASCUS_STEEL.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.DAMASCUS_STEEL), 2);
-
-		new BeeMutation(MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.GOLD.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.ANGMALLEN), 10);
-		new BeeMutation(MetallurgyBeeTypes.ANGMALLEN.speciesRough, MetallurgyBeeTypes.ANGMALLEN.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.ANGMALLEN), 5);
-		new BeeMutation(MetallurgyBeeTypes.ANGMALLEN.speciesRefined, MetallurgyBeeTypes.ANGMALLEN.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.ANGMALLEN), 2);
-
-		new BeeMutation(MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.MANGANESE.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.STEEL), 10);
-		new BeeMutation(MetallurgyBeeTypes.STEEL.speciesRough, MetallurgyBeeTypes.STEEL.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.STEEL), 5);
-		new BeeMutation(MetallurgyBeeTypes.STEEL.speciesRefined, MetallurgyBeeTypes.STEEL.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.STEEL), 2);
-
-		new BeeMutation(MetallurgyBeeTypes.ZINC.speciesRough, MetallurgyBeeTypes.COPPPER.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.BRASS), 10);
-		new BeeMutation(MetallurgyBeeTypes.BRASS.speciesRough, MetallurgyBeeTypes.BRASS.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.BRASS), 5);
-		new BeeMutation(MetallurgyBeeTypes.BRASS.speciesRefined, MetallurgyBeeTypes.BRASS.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.BRASS), 2);
-
-		new BeeMutation(MetallurgyBeeTypes.GOLD.speciesRough, MetallurgyBeeTypes.SILVER.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.ELECTRUM), 10);
-		new BeeMutation(MetallurgyBeeTypes.ELECTRUM.speciesRough, MetallurgyBeeTypes.ELECTRUM.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.ELECTRUM), 5);
-		new BeeMutation(MetallurgyBeeTypes.ELECTRUM.speciesRefined, MetallurgyBeeTypes.ELECTRUM.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.ELECTRUM), 2);
-
-		new BeeMutation(MetallurgyBeeTypes.LEMURITE.speciesRough, MetallurgyBeeTypes.SHADOW_IRON.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.SHADOW_STEEL), 10);
-		new BeeMutation(MetallurgyBeeTypes.SHADOW_STEEL.speciesRough, MetallurgyBeeTypes.SHADOW_STEEL.speciesRough, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.SHADOW_STEEL), 5);
-		new BeeMutation(MetallurgyBeeTypes.SHADOW_STEEL.speciesRefined, MetallurgyBeeTypes.SHADOW_STEEL.speciesRefined, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.SHADOW_STEEL), 2);
+		createMutations(MetallurgyBeeTypes.BRONZE.speciesRough, MetallurgyBeeTypes.GOLD.speciesRough, MetallurgyBeeTypes.HEPATIZON);
+		createMutations(MetallurgyBeeTypes.BRONZE.speciesRough, MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.DAMASCUS_STEEL);
+		createMutations(MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.GOLD.speciesRough, MetallurgyBeeTypes.ANGMALLEN);
+		createMutations(MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.MANGANESE.speciesRough, MetallurgyBeeTypes.STEEL);
+		createMutations(MetallurgyBeeTypes.ZINC.speciesRough, MetallurgyBeeTypes.COPPPER.speciesRough, MetallurgyBeeTypes.BRASS);
+		createMutations(MetallurgyBeeTypes.GOLD.speciesRough, MetallurgyBeeTypes.SILVER.speciesRough, MetallurgyBeeTypes.ELECTRUM);
+		createMutations(MetallurgyBeeTypes.LEMURITE.speciesRough, MetallurgyBeeTypes.SHADOW_IRON.speciesRough, MetallurgyBeeTypes.SHADOW_STEEL);
 	}
 
+	public void createMutations(AlleleBeeSpecies parent1, AlleleBeeSpecies parent2, MetallurgyBeeTypes child){
+		new BeeMutation(parent1, parent2, getMetalBeeRoughTemplate(child), 10);
+		new BeeMutation(child.speciesRough, child.speciesRough, getMetalBeeRefinedTemplate(child), 5);
+		new BeeMutation(child.speciesRefined, child.speciesRefined, getMetalBeeReforgedTemplate(child), 2);
+	}
+	
 	public IAllele[] getDefaultMetalBeeTemplate() {
 		IAllele[] alleles = beeRoot.getDefaultTemplate();
 		alleles[EnumBeeChromosome.FLOWER_PROVIDER.ordinal()] = alleleFlowerStone;
