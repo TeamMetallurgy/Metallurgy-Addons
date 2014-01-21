@@ -145,8 +145,7 @@ public class BlockBeehive extends BlockContainer {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
-			MetallurgyBeeTypes beeType = MetallurgyBeeTypes.values()[i];
+		for(MetallurgyBeeTypes beeType: MetallurgyBeeTypes.values()) {
 			beeType.iconBeehiveSide = iconRegister.registerIcon("metallurgybees:beehive" + MetallurgyBees.firstUpperCase(beeType.name) + "Side");
 			beeType.iconBeehiveTop = iconRegister.registerIcon("metallurgybees:beehive" + MetallurgyBees.firstUpperCase(beeType.name) + "Top");
 		}
@@ -155,8 +154,8 @@ public class BlockBeehive extends BlockContainer {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int id, CreativeTabs creativeTab, List list) {
-		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
-			list.add(new ItemStack(id, 1, i));
+		for(MetallurgyBeeTypes beeType: MetallurgyBeeTypes.values()) {
+			list.add(new ItemStack(id, 1, beeType.ordinal()));
 		}
 	}
 }
