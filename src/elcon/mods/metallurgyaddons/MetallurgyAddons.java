@@ -16,6 +16,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import elcon.mods.metallurgyaddons.core.tileentities.TileEntityExtended;
 import elcon.mods.metallurgyaddons.core.tileentities.TileEntityMetadata;
 import elcon.mods.metallurgyaddons.forestry.MetallurgyAddonForestry;
+import elcon.mods.metallurgyaddons.mystcraft.MetallurgyAddonMystcraft;
 
 @Mod(modid = MAReference.MOD_ID, name = MAReference.NAME, version = MAReference.VERSION, acceptedMinecraftVersions = MAReference.MC_VERSION, dependencies = MAReference.DEPENDENCIES)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @SidedPacketHandler(channels = {"MetallurgyAddons"}, packetHandler = MAPacketHandlerClient.class))
@@ -42,6 +43,7 @@ public class MetallurgyAddons {
 		GameRegistry.registerTileEntity(TileEntityExtended.class, "MetallurgyTileExtended");
 		GameRegistry.registerTileEntity(TileEntityMetadata.class, "MetallurgyTileMetadata");
 		
+		//register addons
 		addAddons();
 		
 		for(MetallurgyAddon addon : addons) {
@@ -71,6 +73,9 @@ public class MetallurgyAddons {
 	public void addAddons() {
 		if(Loader.isModLoaded("Forestry")) {
 			registerAddon(new MetallurgyAddonForestry());
+		}
+		if(Loader.isModLoaded("Mystcraft")) {
+			registerAddon(new MetallurgyAddonMystcraft());
 		}
 	}
 
