@@ -60,6 +60,9 @@ public class MetallurgyAddons {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		//init metals
+		Metals.init();
+		
 		for(MetallurgyAddon addon : addons) {
 			addon.postInit();
 		}

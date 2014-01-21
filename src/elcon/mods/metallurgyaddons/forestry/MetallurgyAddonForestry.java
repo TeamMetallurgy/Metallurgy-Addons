@@ -11,13 +11,10 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
-import rebelkeithy.mods.metallurgy.api.IMetalSet;
-import rebelkeithy.mods.metallurgy.api.IOreInfo;
-import rebelkeithy.mods.metallurgy.api.MetallurgyAPI;
 import rebelkeithy.mods.metallurgy.api.OreType;
-import rebelkeithy.mods.metallurgy.metals.MetallurgyMetals;
 import cpw.mods.fml.common.registry.GameRegistry;
 import elcon.mods.metallurgyaddons.MetallurgyAddon;
+import elcon.mods.metallurgyaddons.Metals;
 import elcon.mods.metallurgyaddons.core.blocks.BlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.core.items.ItemBlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.forestry.blocks.BlockBeehive;
@@ -89,19 +86,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 	}
 
 	@Override
-	public void postInit() {
-		//init set names
-		for(int i = 0; i < MetallurgyAPI.getMetalSetNames().length; i++) {
-			IMetalSet metalSet = MetallurgyAPI.getMetalSet(MetallurgyAPI.getMetalSetNames()[i]);
-			for(IOreInfo oreInfo : metalSet.getOreList().values()) {
-				MetallurgyBeeTypes beeType = MetallurgyBeeTypes.valueOf(oreInfo.getName().replaceAll(" ", "_").toUpperCase());
-				beeType.setName = MetallurgyAPI.getMetalSetNames()[i];
-				beeType.hasHive = oreInfo.getType() != OreType.ALLOY;
-			}
-		}
-		MetallurgyBeeTypes.IRON.setName = "Vanilla";
-		MetallurgyBeeTypes.GOLD.setName = "Vanilla";
-		
+	public void postInit() {		
 		beeRoot = (IBeeRoot) AlleleManager.alleleRegistry.getSpeciesRoot("rootBees");
 
 		alleleFlowerStone = new AlleleFlowers("flowerStone", new FlowerProviderStone(), true);
@@ -111,8 +96,8 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
 			MetallurgyBeeTypes beeType = MetallurgyBeeTypes.values()[i];
-
-			System.out.println(beeType.setName);
+			beeType.metal = Metals.getMetal(beeType.name);
+			beeType.hasHive = beeType.metal.oreInfo.getType() != OreType.ALLOY;
 			
 			// init bee species alleles
 			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.bees." + beeType.name + ".rough", branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 30);
@@ -131,13 +116,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			}
 			
 			//register centrifuge recipes
-			if(beeType == MetallurgyBeeTypes.IRON) {
-				RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{new ItemStack(MetallurgyMetals.dustIron.itemID, 1, 0), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
-			} else if(beeType == MetallurgyBeeTypes.GOLD) {
-				RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{new ItemStack(MetallurgyMetals.dustGold.itemID, 1, 0), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
-			} else {
-				RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{MetallurgyAPI.getMetalSet(beeType.setName).getOreInfo(beeType.name).getDust(), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
-			}
+			RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{Metals.getMetal(beeType.name).oreInfo.getDust(), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
 			
 			// add hive drops
 			if(beeType.hasHive) {
