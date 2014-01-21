@@ -9,7 +9,7 @@ import forestry.apiculture.genetics.AlleleBeeSpecies;
 
 public enum MetallurgyBeeTypes {
 
-	COPPPER("copper", 				true, new ColorPair(192, 81, 14, 137, 57, 10), 		new ColorPair(238, 104, 23, 192, 81, 14), 		new ColorPair(241, 136, 73, 238, 104, 23), 		new ColorPair(241, 136, 73, 192, 81, 14)),
+	COPPER("copper", 				true, new ColorPair(192, 81, 14, 137, 57, 10), 		new ColorPair(238, 104, 23, 192, 81, 14), 		new ColorPair(241, 136, 73, 238, 104, 23), 		new ColorPair(241, 136, 73, 192, 81, 14)),
 	TIN("tin", 						true, new ColorPair(170, 170, 170, 126, 126, 126), 	new ColorPair(192, 192, 192, 170, 170, 170), 	new ColorPair(210, 210, 210, 192, 192, 192), 	new ColorPair(210, 210, 210, 170, 170, 170)),
 	BRONZE("bronze",				false, new ColorPair(132, 80, 32, 94, 56, 23), 		new ColorPair(186, 112, 44, 132, 80, 32), 		new ColorPair(225, 175, 130, 186, 112, 44),		new ColorPair(225, 175, 130, 132, 80, 32)),
 	IRON("iron", 					true, new ColorPair(175, 142, 119, 130, 98, 77), 	new ColorPair(216, 175, 147, 175, 142, 119),	new ColorPair(235, 210, 194, 216, 175, 147), 	new ColorPair(235, 210, 194, 188, 153, 128)),
@@ -31,7 +31,7 @@ public enum MetallurgyBeeTypes {
 	MIDASIUM("midasium", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	VYROXERES("vyroxeres", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	CERUCLASE("ceruclase", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
-	ADLUORITE("adluorite", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
+	ALDUORITE("alduorite", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	INOLASHITE("inolashite",		false, new ColorPair(255, 255, 255, 255, 255, 255), new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	KALENDRITE("kalendrite",		true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	AMORDRINE("amordrine", 			false, new ColorPair(255, 255, 255, 255, 255, 255), new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
@@ -50,7 +50,7 @@ public enum MetallurgyBeeTypes {
 	HADEROTH("haderoth", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255),	new ColorPair(255, 255, 255, 255, 255, 255)),
 	ORICHALCUM("orichalcum", 		true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255),	new ColorPair(255, 255, 255, 255, 255, 255)),
 	CELENEGIL("celenegil", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
-	ADAMANTITE("adamantite",		true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
+	ADAMANTINE("adamantine",		true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	ATLARUS("atlarus", 				true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	TARTARITE("tartarite", 			true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
 	PHOSPHORITE("phosphorite", 		true, new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255), 	new ColorPair(255, 255, 255, 255, 255, 255)),
@@ -77,6 +77,7 @@ public enum MetallurgyBeeTypes {
 	}	
 	
 	public String name;
+	public String setName;
 	public int colorBeeRoughPrimary;
 	public int colorBeeRoughSecondary;
 	public int colorBeeRefinedPrimary;

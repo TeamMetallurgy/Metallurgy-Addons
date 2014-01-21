@@ -10,10 +10,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import elcon.mods.metallurgyaddons.core.blocks.BlockExtendedMetadata;
@@ -24,7 +27,7 @@ import forestry.api.apiculture.IHiveDrop;
 import forestry.apiculture.MaterialBeehive;
 
 public class BlockBeehive extends BlockExtendedMetadata {
-	
+
 	public BlockBeehive(int id) {
 		super(id, new MaterialBeehive(true));
 		setHardness(1.5F);
@@ -33,15 +36,15 @@ public class BlockBeehive extends BlockExtendedMetadata {
 		setStepSound(Block.soundStoneFootstep);
 		setCreativeTab(MetallurgyAddonForestry.creativeTab);
 	}
-	
+
 	public String getLocalizedName(ItemStack stack) {
 		return StatCollector.translateToLocal("metallurgy.metals." + MetallurgyBeeTypes.values()[stack.getItemDamage()].name) + " " + StatCollector.translateToLocal(getUnlocalizedName(stack));
 	}
-	
+
 	public String getUnlocalizedName(ItemStack stack) {
 		return getUnlocalizedName();
 	}
-	
+
 	@Override
 	public String getUnlocalizedName() {
 		return "tile.metallurgyBeehive.name";
@@ -53,6 +56,26 @@ public class BlockBeehive extends BlockExtendedMetadata {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean canHarvestBlock(EntityPlayer player, int meta) {
+		return ForgeHooks.canHarvestBlock(this, player, meta);
+	}
+
+	@Override
+	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
+		int meta = getMetadata(world, x, y, z);
+		float hardness = getBlockHardness(world, x, y, z);
+		if(hardness < 0.0F) {
+			return 0.0F;
+		}
+		if(!canHarvestBlock(player, meta)) {
+			float speed = ForgeEventFactory.getBreakSpeed(player, this, meta, 1.0f);
+			return (speed < 0 ? 0 : speed) / hardness / 100F;
+		} else {
+			return player.getCurrentPlayerStrVsBlock(this, false, meta) / hardness / 30F;
+		}
 	}
 
 	@Override
@@ -107,7 +130,7 @@ public class BlockBeehive extends BlockExtendedMetadata {
 			}
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int id, CreativeTabs creativeTab, List list) {
