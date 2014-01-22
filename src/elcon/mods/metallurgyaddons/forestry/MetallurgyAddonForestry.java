@@ -74,7 +74,10 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 		GameRegistry.registerItem(honeyComb, "metallurgyHoneyComb");
 
 		// set block harvest levels
-		MinecraftForge.setBlockHarvestLevel(beehive, "pickaxe", 0);
+		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
+			//MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", Metals.getMetal(MetallurgyBeeTypes.values()[i].name).oreInfo.getBlockHarvestLevel());
+			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", 0);
+		}
 
 		// add localizations to Forestry's Localization
 		Localization.instance.addLocalization("/assets/metallurgybees/lang/");
