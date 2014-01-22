@@ -19,6 +19,7 @@ import elcon.mods.metallurgyaddons.core.blocks.BlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.core.items.ItemBlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.forestry.blocks.BlockBeehive;
 import elcon.mods.metallurgyaddons.forestry.items.ItemHoneyComb;
+import elcon.mods.metallurgyaddons.forestry.worldgen.BeeGeneration;
 import forestry.api.apiculture.EnumBeeChromosome;
 import forestry.api.apiculture.IBeeRoot;
 import forestry.api.genetics.AlleleManager;
@@ -121,6 +122,10 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			// add hive drops
 			if(beeType.hasHive) {
 				beeType.hiveDrops.add(new HiveDrop(getMetalBeeRoughTemplate(beeType), new ItemStack[]{new ItemStack(honeyComb.itemID, 1, i)}, 80));
+			}
+			
+			if(beeType.hasHive) {
+				GameRegistry.registerWorldGenerator(new BeeGeneration(beeType));
 			}
 		}
 		createAlloyBeeMutations();
