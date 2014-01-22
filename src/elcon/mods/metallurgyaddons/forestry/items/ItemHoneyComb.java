@@ -15,41 +15,41 @@ import elcon.mods.metallurgyaddons.forestry.MetallurgyBeeTypes;
 import forestry.core.config.ForestryItem;
 
 public class ItemHoneyComb extends Item {
-
+	
 	public ItemHoneyComb(int id) {
 		super(id - 256);
 		setMaxDamage(0);
 		setHasSubtypes(true);
 		setCreativeTab(MetallurgyAddonForestry.creativeTab);
 	}
-
+	
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
 		return StatCollector.translateToLocal("metallurgy.metals." + MetallurgyBeeTypes.values()[stack.getItemDamage()].name) + " " + StatCollector.translateToLocal(getUnlocalizedName());
 	}
-
+	
 	@Override
 	public String getUnlocalizedName() {
 		return "item.metallurgyHoneyComb.name";
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamageForRenderPass(int meta, int renderPass) {
 		return ForestryItem.beeComb.item().getIconFromDamageForRenderPass(0, renderPass);
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
-
+	
 	@Override
 	public int getRenderPasses(int meta) {
 		return 2;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int renderPass) {
@@ -58,17 +58,17 @@ public class ItemHoneyComb extends Item {
 		}
 		return MetallurgyBeeTypes.values()[stack.getItemDamage()].colorCombPrimary;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int id, CreativeTabs creativeTab, List list) {
-		for(MetallurgyBeeTypes beeType : MetallurgyBeeTypes.values()) {
-			list.add(new ItemStack(id, 1, beeType.ordinal()));
+		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
+			list.add(new ItemStack(id, 1, i));
 		}
 	}
 }
