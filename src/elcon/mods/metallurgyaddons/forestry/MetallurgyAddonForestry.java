@@ -81,7 +81,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			ItemStack ore = Metals.getMetal(MetallurgyBeeTypes.values()[i].name).oreInfo.getOre();
 			Block block = Block.blocksList[ore.itemID];
 			int blocklvl = MinecraftForge.getBlockHarvestLevel(block, ore.getItemDamage(), "pickaxe");
-			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", blocklvl + 1);
+			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", blocklvl);
 		}
 
 		// add localizations to Forestry's Localization
