@@ -75,7 +75,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 		// set block harvest levels
 		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
-			//MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", Metals.getMetal(MetallurgyBeeTypes.values()[i].name).oreInfo.getBlockHarvestLevel());
+			// MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", Metals.getMetal(MetallurgyBeeTypes.values()[i].name).oreInfo.getBlockHarvestLevel());
 			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", 0);
 		}
 
@@ -90,7 +90,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 	}
 
 	@Override
-	public void postInit() {		
+	public void postInit() {
 		beeRoot = (IBeeRoot) AlleleManager.alleleRegistry.getSpeciesRoot("rootBees");
 
 		alleleFlowerStone = new AlleleFlowers("flowerStone", new FlowerProviderStone(), true);
@@ -98,15 +98,14 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 		branchMetal = new BranchBees("metal", "Metallum");
 		AlleleManager.alleleRegistry.getClassification("family.apidae").addMemberGroup(branchMetal);
 
-		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
-			MetallurgyBeeTypes beeType = MetallurgyBeeTypes.values()[i];
+		for(MetallurgyBeeTypes beeType : MetallurgyBeeTypes.values()) {
 			beeType.metal = Metals.getMetal(beeType.name);
 			beeType.hasHive = beeType.metal.oreInfo.getType() != OreType.ALLOY;
-			
+
 			// init bee species alleles
-			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.bees." + beeType.name + ".rough", branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 30);
-			beeType.speciesRefined = new AlleleBeeSpecies(beeType.name + "Refined", true, "metallurgy.bees." + beeType.name + ".refined", branchMetal, "metallum", beeType.colorBeeRefinedPrimary, beeType.colorBeeRefinedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 50);
-			beeType.speciesReforged = (AlleleBeeSpecies) new AlleleBeeSpecies(beeType.name + "Reforged", true, "metallurgy.bees." + beeType.name + ".reforged", branchMetal, "metallum", beeType.colorBeeReforgedPrimary, beeType.colorBeeReforgedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 70);
+			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.bees." + beeType.name + ".rough", branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, beeType.ordinal()), 30);
+			beeType.speciesRefined = new AlleleBeeSpecies(beeType.name + "Refined", true, "metallurgy.bees." + beeType.name + ".refined", branchMetal, "metallum", beeType.colorBeeRefinedPrimary, beeType.colorBeeRefinedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, beeType.ordinal()), 50);
+			beeType.speciesReforged = (AlleleBeeSpecies) new AlleleBeeSpecies(beeType.name + "Reforged", true, "metallurgy.bees." + beeType.name + ".reforged", branchMetal, "metallum", beeType.colorBeeReforgedPrimary, beeType.colorBeeReforgedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, beeType.ordinal()), 70);
 
 			// register templates
 			beeRoot.registerTemplate(getMetalBeeRoughTemplate(beeType));
@@ -118,14 +117,14 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 				new BeeMutation(beeType.speciesRough, beeType.speciesRough, getMetalBeeRefinedTemplate(beeType), 5);
 				new BeeMutation(beeType.speciesRefined, beeType.speciesRefined, getMetalBeeReforgedTemplate(beeType), 2);
 			}
-			
-			//register centrifuge recipes
-			RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{Metals.getMetal(beeType.name).oreInfo.getDust(), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
-			
+
+			// register centrifuge recipes
+			RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, beeType.ordinal()), new ItemStack[]{Metals.getMetal(beeType.name).oreInfo.getDust(), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
+
 			// add hives and their drops
 			if(beeType.hasHive) {
-				beeType.hiveDrops.add(new HiveDrop(getMetalBeeRoughTemplate(beeType), new ItemStack[]{new ItemStack(honeyComb.itemID, 1, i)}, 80));
-				
+				beeType.hiveDrops.add(new HiveDrop(getMetalBeeRoughTemplate(beeType), new ItemStack[]{new ItemStack(honeyComb.itemID, 1, beeType.ordinal())}, 80));
+
 				GameRegistry.registerWorldGenerator(new WorldGenBeehives(beeType));
 			}
 		}
