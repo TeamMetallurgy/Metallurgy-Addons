@@ -125,8 +125,8 @@ public class BlockBeehive extends BlockExtendedMetadata {
 		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
 			MetallurgyBeeTypes beeType = MetallurgyBeeTypes.values()[i];
 			if(beeType.hasHive) {
-				beeType.iconBeehiveSide = iconRegister.registerIcon("metallurgybees:beehive/" + MAUtil.firstUpperCase(beeType.name) + "Side");
-				beeType.iconBeehiveTop = iconRegister.registerIcon("metallurgybees:beehive/" + MAUtil.firstUpperCase(beeType.name) + "Top");
+				beeType.iconBeehiveSide = iconRegister.registerIcon("metallurgybees:forestry/beehive" + MAUtil.firstUpperCase(beeType.name) + "Side");
+				beeType.iconBeehiveTop = iconRegister.registerIcon("metallurgybees:forestry/beehive" + MAUtil.firstUpperCase(beeType.name) + "Top");
 			}
 		}
 	}
