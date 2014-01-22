@@ -72,8 +72,8 @@ public enum MetallurgyBeeTypes {
 		this.colorBeeRefinedSecondary = refined.getRGB2();
 		this.colorBeeReforgedPrimary = reforged.getRGB1();
 		this.colorBeeReforgedSecondary = reforged.getRGB2();
-		this.colorCombPrimary = comb.getRGB1();
-		this.colorCombSecondary = comb.getRGB2();
+		this.colorCombPrimary = comb.getRGB2();
+		this.colorCombSecondary = comb.getRGB1();
 	}	
 	
 	public String name;

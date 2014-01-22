@@ -38,7 +38,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 	public static MACreativeTabForestry creativeTab = new MACreativeTabForestry("MetallurgyBees");
 
-	public static int blockBeehiveID = 4000;
+	public static int blockBeehiveID = 1500;
 	public static int itemHoneyCombID = 6000;
 
 	public static Block beehive;
@@ -103,7 +103,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			// init bee species alleles
 			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.bees." + beeType.name + ".rough", branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 30);
 			beeType.speciesRefined = new AlleleBeeSpecies(beeType.name + "Refined", true, "metallurgy.bees." + beeType.name + ".refined", branchMetal, "metallum", beeType.colorBeeRefinedPrimary, beeType.colorBeeRefinedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 50);
-			beeType.speciesReforged = (AlleleBeeSpecies) new AlleleBeeSpecies(beeType.name + "Reforged", true, "metallurgy.bees." + beeType.name + ".reforged", branchMetal, "metallum", beeType.colorBeeReforgedPrimary, beeType.colorBeeReforgedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 70).setHasEffect();
+			beeType.speciesReforged = (AlleleBeeSpecies) new AlleleBeeSpecies(beeType.name + "Reforged", true, "metallurgy.bees." + beeType.name + ".reforged", branchMetal, "metallum", beeType.colorBeeReforgedPrimary, beeType.colorBeeReforgedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 70);
 
 			// register templates
 			beeRoot.registerTemplate(getMetalBeeRoughTemplate(beeType));
