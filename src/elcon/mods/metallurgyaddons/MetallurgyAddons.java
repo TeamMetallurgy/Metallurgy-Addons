@@ -36,15 +36,17 @@ public class MetallurgyAddons {
 	public void preInit(FMLPreInitializationEvent event) {
 		// init config
 		config = new MAConfig(event.getSuggestedConfigurationFile());
+
+		//register addons
+		addAddons();
+		
+		//load config
 		config.load();
 		config.save();
 
 		// register tileentities
 		GameRegistry.registerTileEntity(TileEntityExtended.class, "MetallurgyTileExtended");
 		GameRegistry.registerTileEntity(TileEntityMetadata.class, "MetallurgyTileMetadata");
-		
-		//register addons
-		addAddons();
 		
 		for(MetallurgyAddon addon : addons) {
 			addon.preInit();

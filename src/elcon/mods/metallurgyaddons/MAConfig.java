@@ -1,6 +1,7 @@
 package elcon.mods.metallurgyaddons;
 
 import java.io.File;
+import java.util.Iterator;
 
 import net.minecraftforge.common.Configuration;
 
@@ -18,8 +19,14 @@ public class MAConfig {
 	
 	public void load() {
 		config.load();
-		for(MetallurgyAddon addon : MetallurgyAddons.addons) {
-			addon.loadConfig(config, addon.getID());
+		Iterator<MetallurgyAddon> iterator = MetallurgyAddons.addons.iterator();
+		while(iterator.hasNext()) {
+			MetallurgyAddon addon = iterator.next();
+			if(config.get(addon.getID(), "enabled", true).getBoolean(true)) {
+				MetallurgyAddons.addons.remove(addon);
+			} else {
+				addon.loadConfig(config, addon.getID());
+			}
 		}
 	}
 	

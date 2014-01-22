@@ -36,7 +36,7 @@ import forestry.core.utils.Localization;
 
 public class MetallurgyAddonForestry extends MetallurgyAddon {
 
-	public static MACreativeTabForestry creativeTab = new MACreativeTabForestry("MetallurgyBees");
+	public static MACreativeTabForestry creativeTab;
 
 	public static int blockBeehiveID = 1500;
 	public static int itemHoneyCombID = 6000;
@@ -61,6 +61,9 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 	@Override
 	public void preInit() {
+		//init creative tab
+		creativeTab = new MACreativeTabForestry("MetallurgyAddonForestry");
+		
 		// init blocks
 		beehive = new BlockBeehive(blockBeehiveID).setUnlocalizedName("metallurgyBeehive");
 
