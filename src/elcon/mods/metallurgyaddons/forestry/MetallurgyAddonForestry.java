@@ -19,7 +19,7 @@ import elcon.mods.metallurgyaddons.core.blocks.BlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.core.items.ItemBlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.forestry.blocks.BlockBeehive;
 import elcon.mods.metallurgyaddons.forestry.items.ItemHoneyComb;
-import elcon.mods.metallurgyaddons.forestry.worldgen.BeeGeneration;
+import elcon.mods.metallurgyaddons.forestry.worldgen.WorldGenBeehives;
 import forestry.api.apiculture.EnumBeeChromosome;
 import forestry.api.apiculture.IBeeRoot;
 import forestry.api.genetics.AlleleManager;
@@ -119,13 +119,11 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			//register centrifuge recipes
 			RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{Metals.getMetal(beeType.name).oreInfo.getDust(), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
 			
-			// add hive drops
+			// add hives and their drops
 			if(beeType.hasHive) {
 				beeType.hiveDrops.add(new HiveDrop(getMetalBeeRoughTemplate(beeType), new ItemStack[]{new ItemStack(honeyComb.itemID, 1, i)}, 80));
-			}
-			
-			if(beeType.hasHive) {
-				GameRegistry.registerWorldGenerator(new BeeGeneration(beeType));
+				
+				GameRegistry.registerWorldGenerator(new WorldGenBeehives(beeType));
 			}
 		}
 		createAlloyBeeMutations();
