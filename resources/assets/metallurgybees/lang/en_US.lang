@@ -54,6 +54,20 @@ metallurgy.metals.eximite=Eximite
 metallurgy.metals.meutoite=Meutoite
 metallurgy.metals.desichalkos=Desichalkos
 
+metallurgy.frames.heated=Heated
+metallurgy.frames.reinforced=Reinforced
+metallurgy.frames.fortified=Fortified
+metallurgy.frames.midas=Midas
+metallurgy.frames.mutating=Mutating
+metallurgy.frames.cooling=Cooling
+metallurgy.frames.fertile=Fertile
+metallurgy.frames.ancient=Ancient
+metallurgy.frames.immortal=Immortal
+metallurgy.frames.molten=Molten
+metallurgy.frames.sanguine=Sanguine
+
+metallurgybees.frame.name=Frame
+
 flowers.stone=Stone
 
 tile.metallurgyBeehive.name=Beehive

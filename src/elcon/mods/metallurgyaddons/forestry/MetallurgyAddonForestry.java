@@ -15,9 +15,12 @@ import rebelkeithy.mods.metallurgy.api.OreType;
 import cpw.mods.fml.common.registry.GameRegistry;
 import elcon.mods.metallurgyaddons.MetallurgyAddon;
 import elcon.mods.metallurgyaddons.Metals;
+import elcon.mods.metallurgyaddons.Metals.Metal;
 import elcon.mods.metallurgyaddons.core.blocks.BlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.core.items.ItemBlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.forestry.blocks.BlockBeehive;
+import elcon.mods.metallurgyaddons.forestry.items.EnumHiveFrames;
+import elcon.mods.metallurgyaddons.forestry.items.ItemFrames;
 import elcon.mods.metallurgyaddons.forestry.items.ItemHoneyComb;
 import elcon.mods.metallurgyaddons.forestry.worldgen.WorldGenBeehives;
 import forestry.api.apiculture.EnumBeeChromosome;
@@ -40,10 +43,12 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 	public static int blockBeehiveID = 1500;
 	public static int itemHoneyCombID = 6000;
-
+	public static int itemHiveFrameID = 6001;
+	
 	public static Block beehive;
 
 	public static Item honeyComb;
+	public static Item hiveFrame;
 
 	public static IBeeRoot beeRoot;
 	public static IClassification branchMetal;
@@ -72,16 +77,22 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 		// init items
 		honeyComb = new ItemHoneyComb(itemHoneyCombID).setUnlocalizedName("metallurgyHoneyComb");
+		EnumHiveFrames.init();
+		hiveFrame = new ItemFrames(itemHiveFrameID);
 
 		// register items
 		GameRegistry.registerItem(honeyComb, "metallurgyHoneyComb");
+		GameRegistry.registerItem(hiveFrame, "metallurgyFrames");
 
 		// set block harvest levels
 		for(int i = 0; i < MetallurgyBeeTypes.values().length; i++) {
-			ItemStack ore = Metals.getMetal(MetallurgyBeeTypes.values()[i].name).oreInfo.getOre();
-			Block block = Block.blocksList[ore.itemID];
-			int blocklvl = MinecraftForge.getBlockHarvestLevel(block, ore.getItemDamage(), "pickaxe");
-			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", blocklvl);
+			Metal metal = Metals.getMetal(MetallurgyBeeTypes.values()[i].name);
+			if(metal != null) {
+				ItemStack ore = metal.oreInfo.getOre();
+				Block block = Block.blocksList[ore.itemID];
+				int blocklvl = MinecraftForge.getBlockHarvestLevel(block, ore.getItemDamage(), "pickaxe");
+				MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", blocklvl);
+			}
 		}
 
 		// add localizations to Forestry's Localization
@@ -120,8 +131,8 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 			// init bee mutations
 			if(beeType.hasHive) {
-				new BeeMutation(beeType.speciesRough, AlleleManager.alleleRegistry.getAllele("forestryUnweary"), getMetalBeeRefinedTemplate(beeType), 5);
-				new BeeMutation(beeType.speciesRefined, AlleleManager.alleleRegistry.getAllele("forestryIndustrous"), getMetalBeeReforgedTemplate(beeType), 2);
+				new BeeMutation(beeType.speciesRough, AlleleManager.alleleRegistry.getAllele("forestry.speciesUnweary"), getMetalBeeRefinedTemplate(beeType), 5);
+				new BeeMutation(beeType.speciesRefined, AlleleManager.alleleRegistry.getAllele("forestry.speciesIndustrious"), getMetalBeeReforgedTemplate(beeType), 2);
 			}
 
 			// register centrifuge recipes
@@ -150,8 +161,8 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 	public void createMutations(AlleleBeeSpecies parent1, AlleleBeeSpecies parent2, MetallurgyBeeTypes child) {
 		new BeeMutation(parent1, parent2, getMetalBeeRoughTemplate(child), 10);
-		new BeeMutation(child.speciesRough, AlleleManager.alleleRegistry.getAllele("forestryUnweary"), getMetalBeeRefinedTemplate(child), 5);
-		new BeeMutation(child.speciesRefined, AlleleManager.alleleRegistry.getAllele("forestryIndustrous"), getMetalBeeReforgedTemplate(child), 2);
+		new BeeMutation(child.speciesRough, AlleleManager.alleleRegistry.getAllele("forestry.speciesUnweary"), getMetalBeeRefinedTemplate(child), 5);
+		new BeeMutation(child.speciesRefined, AlleleManager.alleleRegistry.getAllele("forestry.speciesIndustrious"), getMetalBeeReforgedTemplate(child), 2);
 	}
 
 	public IAllele[] getDefaultMetalBeeTemplate() {
@@ -182,6 +193,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 	public void loadConfig(Configuration config, String category) {
 		blockBeehiveID = config.getBlock("beehive", blockBeehiveID).getInt();
 		itemHoneyCombID = config.getItem("honeyComb", itemHoneyCombID).getInt();
+		itemHiveFrameID = config.getItem("hiveFrame", itemHiveFrameID).getInt();
 	}
 
 	@Override
