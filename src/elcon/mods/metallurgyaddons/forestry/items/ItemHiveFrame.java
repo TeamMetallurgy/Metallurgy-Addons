@@ -16,11 +16,11 @@ import forestry.api.apiculture.IBeeGenome;
 import forestry.api.apiculture.IBeeHousing;
 import forestry.api.apiculture.IHiveFrame;
 
-public class ItemFrames extends Item implements IHiveFrame {
+public class ItemHiveFrame extends Item implements IHiveFrame {
 
-	String name;
+	public String name;
 
-	public ItemFrames(int par1) {
+	public ItemHiveFrame(int par1) {
 		super(par1);
 		setMaxStackSize(1);
 		setMaxDamage(0);
@@ -30,8 +30,7 @@ public class ItemFrames extends Item implements IHiveFrame {
 
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
-		name = MetallurgyFrameTypes.values()[stack.getItemDamage()].name();
-		return StatCollector.translateToLocal("metallurgy.frames." + name.toLowerCase()) + " " + StatCollector.translateToLocal(getUnlocalizedName());
+		return StatCollector.translateToLocal("metallurgy.frames." + MetallurgyFrameTypes.values()[stack.getItemDamage()].name().toLowerCase()) + " " + StatCollector.translateToLocal(getUnlocalizedName());
 	}
 
 	@Override
@@ -40,36 +39,36 @@ public class ItemFrames extends Item implements IHiveFrame {
 	}
 
 	@Override
-	public float getFloweringModifier(IBeeGenome arg0, float arg1) {
+	public float getFloweringModifier(IBeeGenome beeGenome, float currentModifier) {
 		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.floweringModifer;
 	}
 
 	@Override
-	public float getGeneticDecay(IBeeGenome arg0, float arg1) {
-		return 1.0f;
+	public float getGeneticDecay(IBeeGenome beeGenome, float currentModifier) {
+		return 1.0F;
 	}
 
 	@Override
-	public float getLifespanModifier(IBeeGenome arg0, IBeeGenome arg1, float arg2) {
+	public float getLifespanModifier(IBeeGenome beeGenome1, IBeeGenome beeGenome2, float currentModifier) {
 		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.lifespanModifer;
 	}
 
 	@Override
-	public float getMutationModifier(IBeeGenome arg0, IBeeGenome arg1, float arg2) {
+	public float getMutationModifier(IBeeGenome beeGenome1, IBeeGenome beeGenome2, float currentModifier) {
 		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.mutationModifier;
 	}
 
 	@Override
-	public float getProductionModifier(IBeeGenome arg0, float arg1) {
+	public float getProductionModifier(IBeeGenome beeGenome, float currentModifier) {
 		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
-		return frame.productionModifer;
+		return currentModifier < 16.0F ? frame.productionModifer : 1.0F;
 	}
 
 	@Override
-	public float getTerritoryModifier(IBeeGenome arg0, float arg1) {
+	public float getTerritoryModifier(IBeeGenome beeGenome, float currentModifier) {
 		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.territoryModifer;
 	}

@@ -19,7 +19,7 @@ import elcon.mods.metallurgyaddons.Metals.Metal;
 import elcon.mods.metallurgyaddons.core.blocks.BlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.core.items.ItemBlockExtendedMetadata;
 import elcon.mods.metallurgyaddons.forestry.blocks.BlockBeehive;
-import elcon.mods.metallurgyaddons.forestry.items.ItemFrames;
+import elcon.mods.metallurgyaddons.forestry.items.ItemHiveFrame;
 import elcon.mods.metallurgyaddons.forestry.items.ItemHoneyComb;
 import elcon.mods.metallurgyaddons.forestry.worldgen.WorldGenBeehives;
 import forestry.api.apiculture.EnumBeeChromosome;
@@ -76,7 +76,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 		// init items
 		honeyComb = new ItemHoneyComb(itemHoneyCombID).setUnlocalizedName("metallurgyHoneyComb");
-		hiveFrame = new ItemFrames(itemHiveFrameID).setUnlocalizedName("metallurgyFrame");
+		hiveFrame = new ItemHiveFrame(itemHiveFrameID).setUnlocalizedName("metallurgyFrame");
 
 		// register items
 		GameRegistry.registerItem(honeyComb, "metallurgyHoneyComb");
