@@ -61,9 +61,9 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 	@Override
 	public void preInit() {
-		//init creative tab
+		// init creative tab
 		creativeTab = new MACreativeTabForestry("MetallurgyAddonForestry");
-		
+
 		// init blocks
 		beehive = new BlockBeehive(blockBeehiveID).setUnlocalizedName("metallurgyBeehive");
 
@@ -81,7 +81,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			ItemStack ore = Metals.getMetal(MetallurgyBeeTypes.values()[i].name).oreInfo.getOre();
 			Block block = Block.blocksList[ore.itemID];
 			int blocklvl = MinecraftForge.getBlockHarvestLevel(block, ore.getItemDamage(), "pickaxe");
-			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", blocklvl + 1);
+			MinecraftForge.setBlockHarvestLevel(beehive, i, "pickaxe", blocklvl);
 		}
 
 		// add localizations to Forestry's Localization
@@ -95,7 +95,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 	}
 
 	@Override
-	public void postInit() {		
+	public void postInit() {
 		beeRoot = (IBeeRoot) AlleleManager.alleleRegistry.getSpeciesRoot("rootBees");
 
 		alleleFlowerStone = new AlleleFlowers("flowerStone", new FlowerProviderStone(), true);
@@ -107,7 +107,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 			MetallurgyBeeTypes beeType = MetallurgyBeeTypes.values()[i];
 			beeType.metal = Metals.getMetal(beeType.name);
 			beeType.hasHive = beeType.metal.oreInfo.getType() != OreType.ALLOY;
-			
+
 			// init bee species alleles
 			beeType.speciesRough = new AlleleBeeSpecies(beeType.name + "Rough", true, "metallurgy.bees." + beeType.name + ".rough", branchMetal, "metallum", beeType.colorBeeRoughPrimary, beeType.colorBeeRoughSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 30);
 			beeType.speciesRefined = new AlleleBeeSpecies(beeType.name + "Refined", true, "metallurgy.bees." + beeType.name + ".refined", branchMetal, "metallum", beeType.colorBeeRefinedPrimary, beeType.colorBeeRefinedSecondary).addProduct(new ItemStack(honeyComb.itemID, 1, i), 50);
@@ -120,17 +120,17 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 			// init bee mutations
 			if(beeType.hasHive) {
-				new BeeMutation(beeType.speciesRough, beeType.speciesRough, getMetalBeeRefinedTemplate(beeType), 5);
-				new BeeMutation(beeType.speciesRefined, beeType.speciesRefined, getMetalBeeReforgedTemplate(beeType), 2);
+				new BeeMutation(beeType.speciesRough, AlleleManager.alleleRegistry.getAllele("forestryUnweary"), getMetalBeeRefinedTemplate(beeType), 5);
+				new BeeMutation(beeType.speciesRefined, AlleleManager.alleleRegistry.getAllele("forestryIndustrous"), getMetalBeeReforgedTemplate(beeType), 2);
 			}
-			
-			//register centrifuge recipes
+
+			// register centrifuge recipes
 			RecipeManagers.centrifugeManager.addRecipe(20, new ItemStack(honeyComb.itemID, 1, i), new ItemStack[]{Metals.getMetal(beeType.name).oreInfo.getDust(), ForestryItem.beeswax.getItemStack(), ForestryItem.honeyDrop.getItemStack()}, new int[]{25, 50, 25});
-			
+
 			// add hives and their drops
 			if(beeType.hasHive) {
 				beeType.hiveDrops.add(new HiveDrop(getMetalBeeRoughTemplate(beeType), new ItemStack[]{new ItemStack(honeyComb.itemID, 1, i)}, 80));
-				
+
 				GameRegistry.registerWorldGenerator(new WorldGenBeehives(beeType));
 			}
 		}
@@ -138,10 +138,7 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 	}
 
 	public void createAlloyBeeMutations() {
-		new BeeMutation(MetallurgyBeeTypes.COPPER.speciesRough, MetallurgyBeeTypes.TIN.speciesRough, getMetalBeeRoughTemplate(MetallurgyBeeTypes.BRONZE), 10);
-		new BeeMutation(MetallurgyBeeTypes.COPPER.speciesRefined, MetallurgyBeeTypes.TIN.speciesRefined, getMetalBeeRefinedTemplate(MetallurgyBeeTypes.BRONZE), 5);
-		new BeeMutation(MetallurgyBeeTypes.COPPER.speciesReforged, MetallurgyBeeTypes.TIN.speciesReforged, getMetalBeeReforgedTemplate(MetallurgyBeeTypes.BRONZE), 2);
-
+		createMutations(MetallurgyBeeTypes.COPPER.speciesRough, MetallurgyBeeTypes.TIN.speciesRough, MetallurgyBeeTypes.BRONZE);
 		createMutations(MetallurgyBeeTypes.BRONZE.speciesRough, MetallurgyBeeTypes.GOLD.speciesRough, MetallurgyBeeTypes.HEPATIZON);
 		createMutations(MetallurgyBeeTypes.BRONZE.speciesRough, MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.DAMASCUS_STEEL);
 		createMutations(MetallurgyBeeTypes.IRON.speciesRough, MetallurgyBeeTypes.GOLD.speciesRough, MetallurgyBeeTypes.ANGMALLEN);
@@ -153,8 +150,8 @@ public class MetallurgyAddonForestry extends MetallurgyAddon {
 
 	public void createMutations(AlleleBeeSpecies parent1, AlleleBeeSpecies parent2, MetallurgyBeeTypes child) {
 		new BeeMutation(parent1, parent2, getMetalBeeRoughTemplate(child), 10);
-		new BeeMutation(child.speciesRough, child.speciesRough, getMetalBeeRefinedTemplate(child), 5);
-		new BeeMutation(child.speciesRefined, child.speciesRefined, getMetalBeeReforgedTemplate(child), 2);
+		new BeeMutation(child.speciesRough, AlleleManager.alleleRegistry.getAllele("forestryUnweary"), getMetalBeeRefinedTemplate(child), 5);
+		new BeeMutation(child.speciesRefined, AlleleManager.alleleRegistry.getAllele("forestryIndustrous"), getMetalBeeReforgedTemplate(child), 2);
 	}
 
 	public IAllele[] getDefaultMetalBeeTemplate() {
