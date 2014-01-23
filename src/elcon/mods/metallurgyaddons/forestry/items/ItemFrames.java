@@ -2,22 +2,19 @@ package elcon.mods.metallurgyaddons.forestry.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
-import elcon.mods.metallurgyaddons.core.util.MAUtil;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import elcon.mods.metallurgyaddons.forestry.MetallurgyAddonForestry;
-import elcon.mods.metallurgyaddons.forestry.MetallurgyBeeTypes;
+import elcon.mods.metallurgyaddons.forestry.MetallurgyFrameTypes;
 import forestry.api.apiculture.IBee;
 import forestry.api.apiculture.IBeeGenome;
 import forestry.api.apiculture.IBeeHousing;
 import forestry.api.apiculture.IHiveFrame;
-import forestry.core.config.ForestryItem;
 
 public class ItemFrames extends Item implements IHiveFrame {
 
@@ -25,25 +22,26 @@ public class ItemFrames extends Item implements IHiveFrame {
 
 	public ItemFrames(int par1) {
 		super(par1);
-		this.setMaxStackSize(1);
-		this.setHasSubtypes(true);
-		this.setCreativeTab(MetallurgyAddonForestry.creativeTab);
-	}
-
-	@Override
-	public String getUnlocalizedName() {
-		return "metallurgybees.frame.name";
+		setMaxStackSize(1);
+		setMaxDamage(0);
+		setHasSubtypes(true);
+		setCreativeTab(MetallurgyAddonForestry.creativeTab);
 	}
 
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
-		this.name = EnumHiveFrames.values()[stack.getItemDamage()].name();
-		return StatCollector.translateToLocal("metallurgy.frames." + this.name.toLowerCase()) + " " + StatCollector.translateToLocal(getUnlocalizedName());
+		name = MetallurgyFrameTypes.values()[stack.getItemDamage()].name();
+		return StatCollector.translateToLocal("metallurgy.frames." + name.toLowerCase()) + " " + StatCollector.translateToLocal(getUnlocalizedName());
+	}
+
+	@Override
+	public String getUnlocalizedName() {
+		return "item.metallurgyFrame.name";
 	}
 
 	@Override
 	public float getFloweringModifier(IBeeGenome arg0, float arg1) {
-		EnumHiveFrames frame = EnumHiveFrames.valueOf(this.name);
+		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.floweringModifer;
 	}
 
@@ -54,25 +52,25 @@ public class ItemFrames extends Item implements IHiveFrame {
 
 	@Override
 	public float getLifespanModifier(IBeeGenome arg0, IBeeGenome arg1, float arg2) {
-		EnumHiveFrames frame = EnumHiveFrames.valueOf(this.name);
+		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.lifespanModifer;
 	}
 
 	@Override
 	public float getMutationModifier(IBeeGenome arg0, IBeeGenome arg1, float arg2) {
-		EnumHiveFrames frame = EnumHiveFrames.valueOf(this.name);
+		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.mutationModifier;
 	}
 
 	@Override
 	public float getProductionModifier(IBeeGenome arg0, float arg1) {
-		EnumHiveFrames frame = EnumHiveFrames.valueOf(this.name);
+		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.productionModifer;
 	}
 
 	@Override
 	public float getTerritoryModifier(IBeeGenome arg0, float arg1) {
-		EnumHiveFrames frame = EnumHiveFrames.valueOf(this.name);
+		MetallurgyFrameTypes frame = MetallurgyFrameTypes.valueOf(name);
 		return frame.territoryModifer;
 	}
 
@@ -99,7 +97,7 @@ public class ItemFrames extends Item implements IHiveFrame {
 	@Override
 	public ItemStack frameUsed(IBeeHousing housing, ItemStack frame, IBee queen, int wear) {
 		if(getMaxDamage() == 0) {
-			setMaxDamage(EnumHiveFrames.values()[frame.getItemDamage()].maxDamage);
+			setMaxDamage(MetallurgyFrameTypes.values()[frame.getItemDamage()].maxDamage);
 		}
 		frame.setItemDamage(frame.getItemDamage() + wear);
 		if(frame.getItemDamage() >= frame.getMaxDamage()) {
@@ -111,18 +109,17 @@ public class ItemFrames extends Item implements IHiveFrame {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		for(int i = 0; i < EnumHiveFrames.values().length; i++) {
-			EnumHiveFrames hiveFrames = EnumHiveFrames.values()[i];
-			this.itemIcon = iconRegister.registerIcon("forestry:frameImpregnated");
+		for(int i = 0; i < MetallurgyFrameTypes.values().length; i++) {
+			MetallurgyFrameTypes hiveFrames = MetallurgyFrameTypes.values()[i];
+			itemIcon = iconRegister.registerIcon("forestry:frameImpregnated");
 		}
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(int id, CreativeTabs creativeTab, List list) {
-		for(int i = 0; i < EnumHiveFrames.values().length; i++) {
+		for(int i = 0; i < MetallurgyFrameTypes.values().length; i++) {
 			list.add(new ItemStack(id, 1, i));
 		}
 	}
-
 }
